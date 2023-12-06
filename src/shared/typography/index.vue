@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+
 
 interface Props {
   tagName: 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
