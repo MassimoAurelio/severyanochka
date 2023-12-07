@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Typography from '@/shared/typography/index.vue'
 interface Props {
-  color?: 'primart' | 'secondary' | 'greyscale' | 'error'
+  color?: 'primary' | 'secondary' | 'greyscale' | 'error'
   decoration?: 'default' | 'outline' | 'none'
   size?: 'L' | 'M' | 'S'
   disabled?: boolean
@@ -16,7 +16,7 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
 <template>
   <button :class="classes" :disabled="disabled">
     <slot name="leftIcon"> </slot>
-    <Typography tagName="p" size="s"><slot> </slot></Typography>
+    <Typography class="button__text" tagName="p" size="s"><slot> </slot></Typography>
   </button>
 </template>
 
@@ -25,14 +25,22 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
   display: flex;
   align-items: center;
   border: none;
+  width: 100%;
   border-radius: 4px;
+  cursor: pointer;
 }
 .button.size_M {
   grid-gap: 8px;
   padding: 8px;
 }
 
-.button.color_secondart{
+.button.color_primary {
   background-color: var(--main-secondary);
+  color: var(--main-on-secondary);
+}
+
+.button__text{
+  width: 100%;
+  text-align: center;
 }
 </style>

@@ -9,8 +9,9 @@ import Icon from '@/shared/icon/index.vue'
   <header class="header">
     <Container class="header_container"
       ><Logo orientation="horizontal" bgColor="white" colorful withText />
-      <div>
-        <Button color="secondary"><template v-slot:leftIcon><Icon type="menu" /> </template>Каталог</Button
+      <div class="header__catalog">
+        <Button color="primary"
+          ><template v-slot:leftIcon><Icon type="menu" /> </template>Каталог</Button
         >
       </div></Container
     >
@@ -29,5 +30,10 @@ import Icon from '@/shared/icon/index.vue'
   left: 0;
   background: var(--surface);
   box-shadow: var(--shadow-defoult-s);
+}
+
+.header__catalog{
+  width: 140px;
+  margin-left: 40px;
 }
 </style>
