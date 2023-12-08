@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import Typography from '@/shared/typography'
 import Container from '@/shared/container'
 import Logo from '@/shared/logo'
 import Button from '@/shared/button'
 import Icon from '@/shared/icon'
 import Field from '@/shared/field'
+
+const onChangeSearch = (value: string) => console.log(value)
+const onSearch = () => console.log('SEND TO SERVER')
 </script>
 
 <template>
@@ -17,7 +19,7 @@ import Field from '@/shared/field'
         >
       </div>
       <div class="header__search">
-        <Field placeholder="Найти товар">
+        <Field placeholder="Найти товар" :onChange="onChangeSearch" :onSubmit="onSearch">
           <template #rightIcon>
             <svg
               width="24"
@@ -63,5 +65,10 @@ import Field from '@/shared/field'
 .header__catalog {
   width: 140px;
   margin-left: 40px;
+}
+
+.header__search {
+  width: 374px;
+  margin-left: 16px;
 }
 </style>

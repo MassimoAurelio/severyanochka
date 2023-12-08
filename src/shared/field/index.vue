@@ -2,6 +2,8 @@
 import { useSlots } from 'vue'
 
 interface Props {
+  onChange: (value: string) => void
+  onSubmit: (value: string) => void
   disabled?: boolean
   size?: 'm' | 'l'
   placeholder?: string
@@ -9,7 +11,12 @@ interface Props {
 
 const slots = useSlots()
 const props = defineProps<Props>()
-const { disabled = false, size = 'm', placeholder = '' } = props
+const {
+  disabled = false,
+  size = 'm',
+  placeholder = '',
+  onSubmit = () => {}
+} = props
 </script>
 
 <template>
@@ -24,11 +31,18 @@ const { disabled = false, size = 'm', placeholder = '' } = props
   >
     <slot name="label"></slot>
     <div class="field__container">
-      <div v-if="slots.leftIcon" class="field__left-icon">
+      <div v-if="slots.leftIcon" class="field__left-icon" @click="onSubmit">
         <slot name="leftIcon"></slot>
       </div>
-      <input class="field__input" type="text" :placeholder="placeholder" :disabled="disabled" />
-      <div v-if="slots.rightIcon" class="field__right-icon">
+      <input
+        class="field__input"
+        type="text"
+        @input="(input) => onChange((input.target as HTMLInputElement)?.value)"
+        @keyup.enter="onSubmit"
+        :placeholder="placeholder"
+        :disabled="disabled"
+      />
+      <div v-if="slots.rightIcon" class="field__right-icon" @click="onSubmit">
         <slot name="rightIcon"></slot>
       </div>
     </div>
@@ -36,8 +50,6 @@ const { disabled = false, size = 'm', placeholder = '' } = props
 </template>
 
 <style scoped>
-.field {
-}
 .field:deep(.typography) {
   color: var(--grayscale-hard);
 }
@@ -48,13 +60,19 @@ const { disabled = false, size = 'm', placeholder = '' } = props
   border: 1px solid var(--grayscale-light);
   background: var(--main-surface);
   color: var(--main-on-surface);
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .field__input:focus {
   border: 1px solid var(--main-secondary);
   box-shadow: var(--shadow-secondary-m);
   caret-color: var(--main-secondary);
+}
+
+.field__input:disabled {
+  border-radius: 4px;
+  border: 1px solid var(--grayscale-light);
+  background: var(--grayscale-lightest);
 }
 
 .field__container {
