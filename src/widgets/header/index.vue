@@ -1,9 +1,17 @@
 <script setup lang="ts">
+import { reactive } from 'vue'
 import Container from '@/shared/container'
 import Logo from '@/shared/logo'
 import Button from '@/shared/button'
 import Icon from '@/shared/icon'
 import Field from '@/shared/field'
+import Navigation from '@/features/header/navigation/index.vue'
+
+const navItems = reactive([
+  { label: 'Избранное', icon: 'favorite', count: 0, link: '/favorites' },
+  { label: 'Заказы', icon: 'orders', count: 0, link: '/orders' },
+  { label: 'Корзина', icon: 'cart', count: 1, link: '/cart' }
+])
 
 const onChangeSearch = (value: string) => console.log(value)
 const onSearch = () => console.log('SEND TO SERVER')
@@ -43,6 +51,10 @@ const onSearch = () => console.log('SEND TO SERVER')
             </svg>
           </template>
         </Field>
+      </div>
+      <div class="header__navigation"></div>
+      <div class="header__navigation">
+        <Navigation :data="navItems" />
       </div>
     </Container>
   </header>

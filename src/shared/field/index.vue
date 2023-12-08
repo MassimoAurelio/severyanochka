@@ -11,12 +11,7 @@ interface Props {
 
 const slots = useSlots()
 const props = defineProps<Props>()
-const {
-  disabled = false,
-  size = 'm',
-  placeholder = '',
-  onSubmit = () => {}
-} = props
+const { disabled = false, size = 'm', placeholder = '', onSubmit = () => {} } = props
 </script>
 
 <template>
@@ -31,18 +26,18 @@ const {
   >
     <slot name="label"></slot>
     <div class="field__container">
-      <div v-if="slots.leftIcon" class="field__left-icon" @click="onSubmit">
+      <div v-if="slots.leftIcon" class="field__left-icon" @click="() => onSubmit('')">
         <slot name="leftIcon"></slot>
       </div>
       <input
         class="field__input"
         type="text"
         @input="(input) => onChange((input.target as HTMLInputElement)?.value)"
-        @keyup.enter="onSubmit"
+        @keyup.enter="() => onSubmit('')"
         :placeholder="placeholder"
         :disabled="disabled"
       />
-      <div v-if="slots.rightIcon" class="field__right-icon" @click="onSubmit">
+      <div v-if="slots.rightIcon" class="field__right-icon" @click="() => onSubmit('')">
         <slot name="rightIcon"></slot>
       </div>
     </div>
@@ -82,6 +77,7 @@ const {
 .field__right-icon,
 .field__left-icon {
   position: absolute;
+  cursor: pointer;
 }
 
 .field__input::placeholder {
