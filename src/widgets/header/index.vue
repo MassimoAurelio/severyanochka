@@ -5,13 +5,21 @@ import Logo from '@/shared/logo'
 import Button from '@/shared/button'
 import Icon from '@/shared/icon'
 import Field from '@/shared/field'
-import Navigation from '@/features/header/navigation/index.vue'
+import Navigation from '@/features/header/navigation'
+import UserMenu from '@/features/header/user-menu/index.vue'
+import avatarSvg from '@/assets/avatar.svg'
 
 const navItems = reactive([
   { label: 'Избранное', icon: 'favorite', count: 0, link: '/favorites' },
   { label: 'Заказы', icon: 'orders', count: 0, link: '/orders' },
   { label: 'Корзина', icon: 'cart', count: 1, link: '/cart' }
 ])
+
+const userMenu = reactive({
+  avatar: avatarSvg,
+  name: 'Алексей',
+  menu: []
+})
 
 const onChangeSearch = (value: string) => console.log(value)
 const onSearch = () => console.log('SEND TO SERVER')
@@ -56,6 +64,9 @@ const onSearch = () => console.log('SEND TO SERVER')
       <div class="header__navigation">
         <Navigation :data="navItems" />
       </div>
+      <div class="header__user-menu">
+        <UserMenu :data="userMenu"/>
+      </div>
     </Container>
   </header>
 </template>
@@ -82,5 +93,13 @@ const onSearch = () => console.log('SEND TO SERVER')
 .header__search {
   width: 374px;
   margin-left: 16px;
+}
+
+.header__navigation {
+  margin: 0 24px 0 40px;
+}
+
+.header__user-menu{
+  width: 217px;
 }
 </style>

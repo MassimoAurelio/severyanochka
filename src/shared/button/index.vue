@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Typography from '@/shared/typography'
+import { useSlots } from 'vue'
 interface Props {
   color?: 'primary' | 'secondary' | 'greyscale' | 'error'
   decoration?: 'default' | 'outline' | 'none'
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const slots = useSlots()
 const { color = 'primary', decoration = 'default', size = 'M', disabled = false } = props
 
 const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${color}`]
@@ -16,7 +18,9 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
 <template>
   <button :class="classes" :disabled="disabled">
     <slot name="leftIcon"> </slot>
-    <Typography class="button__text" tagName="p" size="s"><slot> </slot></Typography>
+    <Typography v-if="slots.default" class="button__text" tagName="p" size="s"
+      ><slot> </slot
+    ></Typography>
   </button>
 </template>
 
@@ -39,8 +43,16 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
   color: var(--main-on-secondary);
 }
 
-.button__text{
+.button__text {
   width: 100%;
   text-align: center;
+}
+
+.button.decoration_none {
+  background-color: unset;
+  border-color: unset;
+}
+.button.decoration_none:deep(path) {
+  fill: var(--main-on-surface);
 }
 </style>
