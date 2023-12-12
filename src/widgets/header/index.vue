@@ -18,7 +18,10 @@ const navItems = reactive([
 const userMenu = reactive({
   avatar: avatarSvg,
   name: 'Алексей',
-  menu: []
+  menu: [
+    { label: 'Профиль', link: '/profile' },
+    { label: 'Выйти', action: 'loguot' }
+  ]
 })
 
 const onChangeSearch = (value: string) => console.log(value)
@@ -35,7 +38,7 @@ const onSearch = () => console.log('SEND TO SERVER')
         >
       </div>
       <div class="header__search">
-        <Field placeholder="Найти товар" :onChange="onChangeSearch" :onSubmit="onSearch">
+        <Field placeholder="Найти товар" :onChange="onChangeSearch" :onSubmit="onSearch" size="m">
           <template #rightIcon>
             <svg
               width="24"
@@ -60,12 +63,11 @@ const onSearch = () => console.log('SEND TO SERVER')
           </template>
         </Field>
       </div>
-      <div class="header__navigation"></div>
       <div class="header__navigation">
         <Navigation :data="navItems" />
       </div>
       <div class="header__user-menu">
-        <UserMenu :data="userMenu"/>
+        <UserMenu :data="userMenu" />
       </div>
     </Container>
   </header>
@@ -99,7 +101,7 @@ const onSearch = () => console.log('SEND TO SERVER')
   margin: 0 24px 0 40px;
 }
 
-.header__user-menu{
+.header__user-menu {
   width: 217px;
 }
 </style>

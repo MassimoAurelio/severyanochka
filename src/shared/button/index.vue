@@ -4,7 +4,7 @@ import { useSlots } from 'vue'
 interface Props {
   color?: 'primary' | 'secondary' | 'greyscale' | 'error'
   decoration?: 'default' | 'outline' | 'none'
-  size?: 'L' | 'M' | 'S'
+  size?: 'S' | 'M' | 'L'
   disabled?: boolean
 }
 
@@ -33,9 +33,20 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
   border-radius: 4px;
   cursor: pointer;
 }
+
+.button.size_S {
+  grid-gap: 4px;
+  padding: 4px;
+}
+
 .button.size_M {
   grid-gap: 8px;
   padding: 8px;
+}
+
+.button.size_L {
+  grid-gap: 12px;
+  padding: 12px;
 }
 
 .button.color_primary {
