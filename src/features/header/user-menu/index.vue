@@ -24,23 +24,21 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <div :class="['user-menu', isOpen && `is-open_${isOpen}`]">
-    <Avatar class="user-menu_avatar" :img="data.avatar" @click="toggleMenu" />
-    <Typography class="user-menu_name" tagName="span" size="s" @click="toggleMenu">{{
+  <div :class="['user-menu', `is-open_${isOpen}`]">
+    <Avatar class="user-menu__avatar" :img="data.avatar" @click="toggleMenu" />
+    <Typography class="user-menu__name" tagName="span" size="s" @click="toggleMenu">{{
       data.name
     }}</Typography>
-    <Button class="user-menu_button" decoration="none" @click="toggleMenu">
+    <Button class="user-menu__button" decoration="none" @click="toggleMenu">
       <template v-slot:leftIcon>
         <Icon type="chevron" />
       </template>
     </Button>
     <ul v-if="isOpen" class="user-menu__list">
-      <li v-for="item in data.menu" :key="item.label" class="item__item">
-        <RouterLink v-if="item.link" :to="item.link" class="item__link"
-          ><Typography tagName="span" size="m" class="item__text">{{
-            item.label
-          }}</Typography></RouterLink
-        >
+      <li v-for="item in data.menu" :key="item.label" class="list__item">
+        <RouterLink v-if="item.link" :to="item.link" class="item__link">
+          <Typography tagName="span" size="m" class="item__text">{{ item.label }}</Typography>
+        </RouterLink>
         <Typography v-else tagName="span" size="m" class="item__text">{{ item.label }}</Typography>
       </li>
     </ul>
@@ -52,35 +50,50 @@ const toggleMenu = () => {
   display: grid;
   grid-template-columns: max-content 1fr max-content;
   align-items: center;
-  gap: 10px;
+  grid-gap: 10px;
   padding: 8px;
-  position: relative;
-  
+  border-radius: 4px;
 }
 
-.user-menu_avatar,
-.user-menu_name,
-.user-menu_button {
+.user-menu.is-open_true {
+  background-color: var(--main-surface);
+  box-shadow: var(--shadow-default-s);
+}
+
+.user-menu__avatar,
+.user-menu__name,
+.user-menu__button {
   cursor: pointer;
 }
 
 .user-menu__list {
   display: grid;
   grid-gap: 10px;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  grid-column: 1/4;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  grid-column: 1 / 4;
 }
 
-.item__item {
+.list__item {
   padding: 8px;
+  user-select: none;
+  cursor: pointer;
 }
 
 .item__link {
   text-decoration: none;
+}
+
+@media screen and (max-width: 1207px) {
+  .user-menu {
+    grid-template-columns: 1fr;
+  }
+
+  .user-menu__list {
+    grid-column: unset;
+  }
+
+  .user-menu__name,
+  .user-menu__button {
+    display: none;
+  }
 }
 </style>

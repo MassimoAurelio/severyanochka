@@ -102,6 +102,13 @@ const onSearch = () => console.log('SEND TO SERVER')
 }
 
 .header__user-menu {
+  position: relative;
   width: 217px;
+}
+
+.header__user-menu:deep(.user-menu) {
+  position: absolute;
+  top: -28px;
+  width: 100%;
 }
 </style>
