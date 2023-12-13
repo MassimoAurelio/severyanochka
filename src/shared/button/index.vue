@@ -21,6 +21,7 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
     <Typography v-if="slots.default" class="button__text" tagName="p" size="s"
       ><slot> </slot
     ></Typography>
+    <slot name="rightIcon"> </slot>
   </button>
 </template>
 
@@ -53,10 +54,15 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
   background-color: var(--main-secondary);
   color: var(--main-on-secondary);
 }
+.button.color_secondary {
+  background-color: var(--main-primary);
+  color: var(--main-on-secondary);
+}
 
 .button__text {
   width: 100%;
   text-align: center;
+  color: var(--main-surface);
 }
 
 .button.decoration_none {

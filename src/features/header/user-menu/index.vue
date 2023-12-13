@@ -1,45 +1,42 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import Avatar from '@/shared/avatar/'
 import Typography from '@/shared/typography/'
 import Button from '@/shared/button/'
 import Icon from '@/shared/icon/'
 
-interface Props {
-  data: {
-    avatar: string
-    name: string
-    menu: { label: string; link: string; action: string }[]
+const props = defineProps({
+  store: {
+    type: Object,
+    required: true
   }
-}
-
-const { data } = defineProps<Props>()
-
-const isOpen = ref(false)
-
-const toggleMenu = () => {
-  isOpen.value = !isOpen.value
-}
+})
 </script>
 
 <template>
-  <div :class="['user-menu', `is-open_${isOpen}`]">
-    <Avatar class="user-menu__avatar" :img="data.avatar" @click="toggleMenu" />
-    <Typography class="user-menu__name" tagName="span" size="s" @click="toggleMenu">{{
-      data.name
+  <div :class="['user-menu', `is-open_${props.store.isOpen}`]">
+    <Avatar class="user-menu__avatar" :img="props.store.avatar" @click="props.store.toggleMenu" />
+    <Typography class="user-menu__name" tagName="span" size="s" @click="props.store.toggleMenu">{{
+      props.store.name
     }}</Typography>
-    <Button class="user-menu__button" decoration="none" @click="toggleMenu">
+    <Button class="user-menu__button" decoration="none" @click="props.store.toggleMenu">
       <template v-slot:leftIcon>
         <Icon type="chevron" />
       </template>
     </Button>
-    <ul v-if="isOpen" class="user-menu__list">
-      <li v-for="item in data.menu" :key="item.label" class="list__item">
+    <ul v-if="props.store.isOpen" class="user-menu__list">
+      <li v-for="item in props.store.menu" :key="item.label" class="list__item">
         <RouterLink v-if="item.link" :to="item.link" class="item__link">
           <Typography tagName="span" size="m" class="item__text">{{ item.label }}</Typography>
         </RouterLink>
-        <Typography v-else tagName="span" size="m" class="item__text">{{ item.label }}</Typography>
+        <Typography
+          v-else
+          tagName="span"
+          size="m"
+          class="item__text"
+          @click="() => props.store.onClickItem(item.action)"
+          >{{ item.label }}</Typography
+        >
       </li>
     </ul>
   </div>
