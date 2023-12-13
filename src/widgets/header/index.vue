@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { useNavStore } from '@/app/stores/useNavItems'
 import { useUserMenuStore } from '@/app/stores/useUserStore'
-import { useManagerMenuStore } from '@/app/stores/useManagerStore'
 import DropDown from '@/features/header/dropdown-menu'
 import Container from '@/shared/container'
 import Logo from '@/shared/logo'
@@ -14,13 +13,16 @@ import UserMenu from '@/features/header/user-menu/index.vue'
 
 const navStore = useNavStore()
 const userMenuStore = useUserMenuStore()
-const userManagerStore = useManagerMenuStore()
-
 const dropDownIsHiden = ref<boolean>(true)
 
 const onChangeSearch = (value: string) => console.log(value)
 const onSearch = () => console.log('SEND TO SERVER')
 const toggleDropDownVisibility = () => (dropDownIsHiden.value = !dropDownIsHiden.value)
+
+const handleLoginClick = () => {
+  userMenuStore.logIn()
+  userMenuStore.isLogoutClicked = false
+}
 </script>
 
 <template>
@@ -64,14 +66,15 @@ const toggleDropDownVisibility = () => (dropDownIsHiden.value = !dropDownIsHiden
         </div>
         <div class="header__user-menu">
           <UserMenu v-if="userMenuStore.isAuth" :store="userMenuStore" />
-          <UserMenu v-if="userManagerStore.isAuth" :store="userManagerStore" />
           <Button
-            v-if="!userMenuStore.isAuth && !userManagerStore.isAuth"
+            v-if="userMenuStore.isLogoutClicked"
             size="M"
             color="secondary"
             class="logIn-btn"
-            ><template v-slot:rightIcon><Icon type="logIn" /> </template>Войти</Button
+            @click="handleLoginClick"
           >
+            <template v-slot:rightIcon><Icon type="logIn" /> </template>Войти
+          </Button>
         </div>
       </Container>
     </div>
@@ -89,7 +92,7 @@ const toggleDropDownVisibility = () => (dropDownIsHiden.value = !dropDownIsHiden
   position: sticky;
   top: 0;
   left: 0;
-  background: var(--surface);
+  background: var(--main-surface);
 }
 
 .header__content {
@@ -125,5 +128,19 @@ const toggleDropDownVisibility = () => (dropDownIsHiden.value = !dropDownIsHiden
 
 .logIn-btn {
   width: 157px;
+}
+
+@media screen and (max-width: 1207px) {
+  .header__user-menu{
+  }
+  .header__catalog{
+    width: unset;
+  }
+  .header__catalog:deep(.typography) {
+    display: none;
+  }
+  .header__catalog:deep(.button) {
+    width: max-content;
+  }
 }
 </style>
