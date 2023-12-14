@@ -72,6 +72,4 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
 .button.decoration_none:deep(path) {
   fill: var(--main-on-surface);
 }
-
-
 </style>

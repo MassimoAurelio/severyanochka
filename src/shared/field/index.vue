@@ -107,10 +107,6 @@ const { disabled = false, size = 'm', placeholder = '', onSubmit = () => {} } = 
   right: 8px;
 }
 
-.field.right-icon_true.size_m .field__input {
-  /*  padding-left: 40px; */
-}
-
 .field.left-icon_true.size_l .field__left-icon {
   top: 8px;
   left: 8px;
@@ -129,5 +125,11 @@ const { disabled = false, size = 'm', placeholder = '', onSubmit = () => {} } = 
 
 .field.right-icon_true.size_l .field__input {
   padding-left: 40px;
+}
+
+@media screen and (max-width: 1207px) {
+  .field__input{
+    width: 325px;
+  }
 }
 </style>

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useNavStore } from '@/app/stores/useNavItems'
 import { useUserMenuStore } from '@/app/stores/useUserStore'
+import { useScreenStore } from '@/app/stores/useSreenStore'
 import DropDown from '@/features/header/dropdown-menu'
 import Container from '@/shared/container'
 import Logo from '@/shared/logo'
@@ -14,6 +16,8 @@ import UserMenu from '@/features/header/user-menu/index.vue'
 const navStore = useNavStore()
 const userMenuStore = useUserMenuStore()
 const dropDownIsHiden = ref<boolean>(true)
+const screenStore = useScreenStore()
+const { platform } = storeToRefs(screenStore)
 
 const onChangeSearch = (value: string) => console.log(value)
 const onSearch = () => console.log('SEND TO SERVER')
@@ -28,8 +32,13 @@ const handleLoginClick = () => {
 <template>
   <header class="header">
     <div class="header__content">
-      <Container class="header_container"
-        ><Logo orientation="horizontal" bgColor="white" colorful withText />
+      <Container class="header_container">
+        <Logo
+          orientation="horizontal"
+          bgColor="white"
+          colorful
+          :withText="platform === 'desctope'"
+        />
         <div class="header__catalog">
           <Button color="primary" @mouseenter="toggleDropDownVisibility"
             ><template v-slot:leftIcon><Icon type="menu" /> </template>Каталог</Button
@@ -131,16 +140,35 @@ const handleLoginClick = () => {
 }
 
 @media screen and (max-width: 1207px) {
-  .header__user-menu{
-  }
-  .header__catalog{
+  .header__user-menu {
     width: unset;
+  }
+  .header__catalog {
+    margin-left: 20px;
+    width: unset;
+  }
+  .header__search {
+    width: max-content;
+    margin-left: 20px;
   }
   .header__catalog:deep(.typography) {
     display: none;
   }
   .header__catalog:deep(.button) {
     width: max-content;
+  }
+  .header__user-menu:deep(.button) {
+    width: max-content;
+  }
+  .logIn-btn:deep(.typography) {
+    display: none;
+  }
+  .header__user-menu:deep(.user-menu) {
+    width: max-content;
+  }
+
+  .header__navigation {
+    margin: 0 16px 0 20px;
   }
 }
 </style>

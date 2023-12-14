@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { toRefs, computed } from 'vue'
+
 interface Props {
   orientation: 'vertical' | 'horizontal' | 'small'
   colorful: boolean
@@ -8,11 +10,31 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { orientation, colorful, bgColor, withText } = props
+const { orientation, colorful, bgColor, withText } = toRefs(props)
 
-const option1 = orientation === 'vertical' && colorful && bgColor === 'white' && withText
-const option2 = orientation === 'horizontal' && colorful && bgColor === 'white' && withText
-const option3 = orientation === 'horizontal' && colorful && bgColor === 'white' && !withText
+const option1 = computed(
+  () =>
+    orientation.value === 'vertical' &&
+    colorful.value &&
+    bgColor.value === 'white' &&
+    withText.value
+)
+
+const option2 = computed(
+  () =>
+    orientation.value === 'horizontal' &&
+    colorful.value &&
+    bgColor.value === 'white' &&
+    withText.value
+)
+
+const option3 = computed(
+  () =>
+    orientation.value === 'horizontal' &&
+    colorful.value &&
+    bgColor.value === 'white' &&
+    !withText.value
+)
 </script>
 
 <template>
