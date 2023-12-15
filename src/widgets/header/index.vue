@@ -140,16 +140,19 @@ const handleLoginClick = () => {
 }
 
 @media screen and (max-width: 1207px) {
+  .header_container {
+    grid-gap: 20px;
+  }
   .header__user-menu {
     width: unset;
   }
   .header__catalog {
-    margin-left: 20px;
     width: unset;
+    margin-left: unset;
   }
   .header__search {
     width: max-content;
-    margin-left: 20px;
+    margin-left: unset
   }
   .header__catalog:deep(.typography) {
     display: none;
@@ -168,7 +171,7 @@ const handleLoginClick = () => {
   }
 
   .header__navigation {
-    margin: 0 16px 0 20px;
+    margin: 0;
   }
 }
 </style>
