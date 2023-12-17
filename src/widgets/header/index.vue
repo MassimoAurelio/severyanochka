@@ -32,15 +32,19 @@ const handleLoginClick = () => {
 <template>
   <header class="header">
     <div class="header__content">
-      <Container class="header_container">
-        <Logo
-          orientation="horizontal"
-          bgColor="white"
-          colorful
-          :withText="platform === 'desctope'"
-        />
+      <Container class="header__container">
+        <div class="header__logo">
+          <RouterLink to="/">
+            <Logo
+              orientation="horizontal"
+              bgColor="white"
+              colorful
+              :withText="platform === 'desktop'"
+            />
+          </RouterLink>
+        </div>
         <div class="header__catalog">
-          <Button color="primary" @mouseenter="toggleDropDownVisibility"
+          <Button color="secondary" @mouseenter="toggleDropDownVisibility"
             ><template v-slot:leftIcon><Icon type="menu" /> </template>Каталог</Button
           >
         </div>
@@ -48,8 +52,8 @@ const handleLoginClick = () => {
           <Field placeholder="Найти товар" :onChange="onChangeSearch" :onSubmit="onSearch" size="m">
             <template #rightIcon>
               <svg
-                width="24"
-                height="24"
+                width="25"
+                height="25"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -92,22 +96,23 @@ const handleLoginClick = () => {
 </template>
 
 <style scoped>
-.header_container {
+.header__container {
   display: flex;
   align-items: center;
   height: 72px;
 }
+
 .header {
   position: sticky;
   top: 0;
   left: 0;
-  background: var(--main-surface);
 }
 
 .header__content {
   position: relative;
   z-index: 1;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-default-s);
+  background: var(--main-surface);
 }
 
 .header__catalog {
@@ -135,43 +140,65 @@ const handleLoginClick = () => {
   width: 100%;
 }
 
-.logIn-btn {
+.header__login-btn {
   width: 157px;
 }
 
 @media screen and (max-width: 1207px) {
-  .header_container {
+  .header__container {
     grid-gap: 20px;
   }
-  .header__user-menu {
-    width: unset;
-  }
+
   .header__catalog {
     width: unset;
     margin-left: unset;
   }
-  .header__search {
+
+  .header__login-btn {
     width: max-content;
-    margin-left: unset
   }
+
+  .header__login-btn:deep(.typography),
   .header__catalog:deep(.typography) {
     display: none;
   }
+
   .header__catalog:deep(.button) {
     width: max-content;
   }
-  .header__user-menu:deep(.button) {
+
+  .header__search {
     width: max-content;
+    margin-left: unset;
   }
-  .logIn-btn:deep(.typography) {
-    display: none;
+
+  .header__user-menu {
+    width: unset;
   }
+
   .header__user-menu:deep(.user-menu) {
     width: max-content;
   }
 
   .header__navigation {
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__navigation,
+  .header__user-menu,
+  .header__catalog {
+    display: none;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__search {
+    width: 100%;
   }
 }
 </style>

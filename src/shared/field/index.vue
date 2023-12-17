@@ -128,8 +128,14 @@ const { disabled = false, size = 'm', placeholder = '', onSubmit = () => {} } = 
 }
 
 @media screen and (max-width: 1207px) {
-  .field__input{
+  .field__input {
     width: 325px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .field__input {
+    width: 263px;
   }
 }
 </style>

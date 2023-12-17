@@ -13,4 +13,10 @@
     max-width: 768px;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .container {
+    max-width: 336px;
+  }
+}
 </style>
