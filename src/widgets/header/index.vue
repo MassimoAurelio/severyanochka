@@ -23,6 +23,7 @@ const onChangeSearch = (value: string) => console.log(value)
 const onSearch = () => console.log('SEND TO SERVER')
 const toggleDropDownVisibility = () => (dropDownIsHiden.value = !dropDownIsHiden.value)
 
+
 const handleLoginClick = () => {
   userMenuStore.logIn()
   userMenuStore.isLogoutClicked = false
@@ -44,7 +45,7 @@ const handleLoginClick = () => {
           </RouterLink>
         </div>
         <div class="header__catalog">
-          <Button color="secondary" @mouseenter="toggleDropDownVisibility"
+          <Button color="primary" @mouseenter="toggleDropDownVisibility"
             ><template v-slot:leftIcon><Icon type="menu" /> </template>Каталог</Button
           >
         </div>
